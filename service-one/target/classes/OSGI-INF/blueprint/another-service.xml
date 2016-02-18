@@ -6,9 +6,9 @@
 
     <service interface="com.pronoia.osgi.service.MyServiceInterface" >
         <service-properties>
-            <entry key="implementation" value="embedded" />
+            <entry key="implementation" value="external" />
         </service-properties>
-        <bean class="com.pronoia.osgi.service.impl.MyServiceImplementation" />
+        <bean class="com.pronoia.osgi.service.impl.AnotherServiceImplementation" />
     </service>
 
 </blueprint>

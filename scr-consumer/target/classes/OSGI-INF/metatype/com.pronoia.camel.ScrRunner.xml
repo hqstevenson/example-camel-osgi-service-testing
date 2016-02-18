@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.0.0" localization="OSGI-INF/metatype/com.pronoia.camel.ScrRunner">
+    <OCD id="com.pronoia.camel.ScrRunner" name="%com.pronoia.camel.ScrRunner.name" description="%com.pronoia.camel.ScrRunner.description">
+        <AD id="camelContextId" type="String" default="scr-test" name="%com.pronoia.camel.ScrRunner.camelContextId.name" description="%com.pronoia.camel.ScrRunner.camelContextId.description"/>
+        <AD id="camelRouteId" type="String" default="scr-route" name="%com.pronoia.camel.ScrRunner.camelRouteId.name" description="%com.pronoia.camel.ScrRunner.camelRouteId.description"/>
+        <AD id="active" type="String" default="true" name="%com.pronoia.camel.ScrRunner.active.name" description="%com.pronoia.camel.ScrRunner.active.description"/>
+        <AD id="from" type="String" default="timer://scr-test?period=5000" name="%com.pronoia.camel.ScrRunner.from.name" description="%com.pronoia.camel.ScrRunner.from.description"/>
+        <AD id="to" type="String" default="log://scr-test" name="%com.pronoia.camel.ScrRunner.to.name" description="%com.pronoia.camel.ScrRunner.to.description"/>
+    </OCD>
+    <Designate pid="com.pronoia.camel.ScrRunner">
+        <Object ocdref="com.pronoia.camel.ScrRunner"/>
+    </Designate>
+</metatype:MetaData>

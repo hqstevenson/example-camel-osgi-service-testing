@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="
+         http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+         http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+
+    <reference id="embedded-service" interface="com.pronoia.osgi.service.MyServiceInterface" filter="implementation=embedded"/>
+    <reference id="external-service" interface="com.pronoia.osgi.service.MyServiceInterface" filter="implementation=external"/>
+    <reference id="stub-service" interface="com.pronoia.osgi.service.MyServiceInterface" filter="implementation=stub"/>
+
+    <camelContext id="blueprint-context" xmlns="http://camel.apache.org/schema/blueprint">
+        <route id="timerToLog">
+            <from uri="timer:blueprint-consumer"/>
+            <setBody>
+                <constant>Dummy Body</constant>
+            </setBody>
+            <bean ref="embedded-service" method="execute"/>
+            <bean ref="external-service" method="execute"/>
+            <bean ref="stub-service" method="execute"/>
+            <to uri="mock:result"/>
+        </route>
+    </camelContext>
+
+</blueprint>

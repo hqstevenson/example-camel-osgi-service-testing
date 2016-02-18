@@ -11,15 +11,15 @@
     </parent>
 
     <groupId>com.pronoia.camel</groupId>
-    <artifactId>blueprint-consumer</artifactId>
+    <artifactId>scr-consumer</artifactId>
     <packaging>bundle</packaging>
 
-    <name>Camel Blueprint Consumer</name>
+    <name>Camel SCR Consumer</name>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-blueprint</artifactId>
+            <artifactId>camel-scr</artifactId>
             <version>${camel-version}</version>
         </dependency>
 
@@ -28,24 +28,33 @@
             <artifactId>service-interface</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.pronoia.osgi</groupId>
-            <artifactId>service-one</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Testing -->
+        <!-- testing -->
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-test-blueprint</artifactId>
+            <artifactId>camel-test</artifactId>
             <version>${camel-version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
-        <defaultGoal>install</defaultGoal>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-scr-plugin</artifactId>
+                <version>1.19.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-scr-scrdescriptor</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>scr</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
     </build>
 
 </project>

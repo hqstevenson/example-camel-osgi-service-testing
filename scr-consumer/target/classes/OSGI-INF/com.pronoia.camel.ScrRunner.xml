@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><components xmlns:scr="http://www.osgi.org/xmlns/scr/v1.2.0">
+    <scr:component immediate="true" name="com.pronoia.camel.ScrRunner" configuration-policy="require">
+        <implementation class="com.pronoia.camel.ScrRunner"/>
+        <property name="camelContextId" value="scr-test"/>
+        <property name="camelRouteId" value="scr-route"/>
+        <property name="active" value="true"/>
+        <property name="from" value="timer://scr-test?period=5000"/>
+        <property name="to" value="log://scr-test"/>
+        <property name="service.pid" value="com.pronoia.camel.ScrRunner"/>
+        <reference name="camelComponent" interface="org.apache.camel.spi.ComponentResolver" cardinality="1..n" policy="dynamic" bind="gotCamelComponent" unbind="lostCamelComponent" policy-option="greedy"/>
+        <reference name="serviceInterface" interface="com.pronoia.osgi.service.MyServiceInterface" cardinality="1..1" policy="static" bind="setServiceInterface" unbind="unsetServiceInterface"/>
+    </scr:component>
+</components>
