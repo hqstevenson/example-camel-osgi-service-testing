@@ -21,7 +21,11 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <camel-version>2.15.5</camel-version>
+        <camel-version>2.16.2</camel-version>
+        <!-- BlueprintTestSupport is better with 2.16.x
+            <camel-version>2.15.5</camel-version>
+            <camel-version>2.16.2</camel-version>
+         -->
         <slf4j-version>1.7.12</slf4j-version>
     </properties>
 
