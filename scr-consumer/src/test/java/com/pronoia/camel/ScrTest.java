@@ -8,7 +8,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.RouteDefinition;
-import org.apache.camel.scr.internal.ScrHelper;
+import org.apache.camel.scr.ScrHelper;
 import org.apache.camel.spi.Registry;
 import org.junit.After;
 import org.junit.Before;
