@@ -33,20 +33,14 @@ public class ScrRunner extends AbstractCamelRunner {
     public static final String COMPONENT_LABEL = "com.pronoia.camel.ScrRunner";
     public static final String COMPONENT_DESCRIPTION = "This is the description for scr.";
 
-    MyServiceInterface serviceInterface = new MyServiceInterface() {
-        @Override
-        public String execute(String body) {
-            System.err.println( "Anonymous version called...");
-            return body;
-        }
-    };
+    MyServiceInterface serviceInterface;
 
     @Override
     protected List<RoutesBuilder>getRouteBuilders() {
         List<RoutesBuilder>routesBuilders = new ArrayList<>();
         ScrRouteBuilder builder = new ScrRouteBuilder();
         builder.setServiceInterface( serviceInterface );
-        routesBuilders.add(new ScrRouteBuilder());
+        routesBuilders.add(builder);
         return routesBuilders;
     }
 
