@@ -25,7 +25,7 @@ import org.apache.felix.scr.annotations.*;
     @Reference(name = "camelComponent",referenceInterface = ComponentResolver.class,
         cardinality = ReferenceCardinality.MANDATORY_MULTIPLE, policy = ReferencePolicy.DYNAMIC,
         policyOption = ReferencePolicyOption.GREEDY, bind = "gotCamelComponent", unbind = "lostCamelComponent"),
-    @Reference( name = "serviceInterface", referenceInterface = MyServiceInterface.class,
+    @Reference( name = "serviceInterface", referenceInterface = MyServiceInterface.class, target = "(implementation=stub)",
         bind = "setServiceInterface", unbind = "unsetServiceInterface")
 })
 public class ScrRunner extends AbstractCamelRunner {

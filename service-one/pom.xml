@@ -14,7 +14,7 @@
     <artifactId>service-one</artifactId>
     <packaging>bundle</packaging>
 
-    <name>Simple Service Implementation</name>
+    <name>Simple Service Implementation One</name>
 
     <dependencies>
         <dependency>

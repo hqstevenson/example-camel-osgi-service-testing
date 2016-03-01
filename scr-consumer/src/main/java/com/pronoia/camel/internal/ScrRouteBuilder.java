@@ -12,17 +12,7 @@ public class ScrRouteBuilder extends RouteBuilder {
     // Configured fields
     private String camelRouteId;
 
-    MyServiceInterface serviceInterface;
-
-    /*
-    MyServiceInterface serviceInterface = new MyServiceInterface() {
-        @Override
-        public String execute(String body) {
-            System.err.println( "Anonymous version called...");
-            return body;
-        }
-    };
-    */
+    Object serviceInterface;
 
     @Override
 	public void configure() throws Exception {
@@ -42,7 +32,7 @@ public class ScrRouteBuilder extends RouteBuilder {
             .to("{{to}}");
 	}
 
-    public void setServiceInterface(MyServiceInterface serviceInterface) {
+    public void setServiceInterface(Object serviceInterface) {
         this.serviceInterface = serviceInterface;
     }
 }

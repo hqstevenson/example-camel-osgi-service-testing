@@ -16,12 +16,12 @@ public class BlueprintServiceConsumerRouteTest extends CamelBlueprintTestSupport
 	
     @Override
     protected String getBlueprintDescriptor() {
-        return "/OSGI-INF/blueprint/blueprint-consumer.xml";
+        return "/OSGI-INF/blueprint/blueprint-context.xml";
     }
 
     @Override
     protected void addServicesOnStartup(Map<String, KeyValueHolder<Object, Dictionary>> services) {
-        services.put( MyServiceInterface.class.getName(), asService(new StubServiceImplementation(), "implementation", "stub"));
+        services.put( MyServiceInterface.class.getName(), asService(new StubServiceImplementation(), "implementation", "bp-external"));
     }
 
     @Test
