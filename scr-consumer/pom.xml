@@ -12,7 +12,6 @@
 
     <groupId>com.pronoia.camel</groupId>
     <artifactId>scr-consumer</artifactId>
-    <packaging>bundle</packaging>
 
     <name>Camel SCR Consumer</name>
 
@@ -35,14 +34,25 @@
             <version>${camel-version}</version>
             <scope>test</scope>
         </dependency>
+        <!-- For processing the Felix annotations
+        <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.scr.annotations</artifactId>
+            <version>1.10.0</version>
+            <scope>provided</scope>
+        </dependency>
+         -->
     </dependencies>
 
     <build>
+        <!--
+        -->
         <plugins>
             <plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-scr-plugin</artifactId>
-                <version>1.19.0</version>
+                <!-- version>1.22.0</version -->
+                <version>1.17.0</version>
                 <executions>
                     <execution>
                         <id>generate-scr-scrdescriptor</id>
@@ -53,7 +63,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
     </build>
 

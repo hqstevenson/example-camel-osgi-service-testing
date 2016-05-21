@@ -10,32 +10,31 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.pronoia.camel</groupId>
+    <groupId>com.pronoia.osgi</groupId>
     <artifactId>blueprint-consumer</artifactId>
-    <packaging>bundle</packaging>
 
-    <name>Camel Blueprint Consumer</name>
+    <name>Blueprint Consumer</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-blueprint</artifactId>
-            <version>${camel-version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>com.pronoia.osgi</groupId>
             <artifactId>service-interface</artifactId>
-            <version>${project.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
 
-        <!-- Testing -->
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-test-blueprint</artifactId>
-            <version>${camel-version}</version>
-            <scope>test</scope>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>5.0.0</version>
+            <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.compendium</artifactId>
+            <version>5.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
 
     <build>

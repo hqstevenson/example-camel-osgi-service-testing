@@ -2,38 +2,27 @@
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
-           xmlns:camel="http://camel.apache.org/schema/blueprint"
            xsi:schemaLocation="
-         http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
-         http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+         http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd"
+         >
 
-    <cm:property-placeholder persistent-id="blueprint-test" update-strategy="reload" >
+    <cm:property-placeholder id="blueprint-context-properties" persistent-id="blueprintContext" update-strategy="reload" >
         <cm:default-properties>
-            <cm:property name="timer-name" value="blueprint-consumer" />
+            <cm:property name="delay" value="1000" />
+            <cm:property name="period" value="5000" />
+            <cm:property name="trace" value="false" />
         </cm:default-properties>
     </cm:property-placeholder>
 
     <reference id="osgi-service" interface="com.pronoia.osgi.service.MyServiceInterface" filter="implementation=bp-external"/>
 
-    <bean id="java-route" class="com.pronoia.camel.builder.ServiceConsumerBuilder" >
-        <property name="beanId" value="osgi-service" />
-        <property name="timerName" value="java-${timer-name}" />
+    <bean id="blueprint-consumer" class="com.pronoia.osgi.blueprint.BlueprintServiceConsumer" init-method="start" destroy-method="stop">
+        <property name="container" ref="blueprintContainer" />
+        <property name="context" ref="blueprintBundleContext" />
+        <property name="trace" value="${trace}" />
+        <property name="service" ref="osgi-service" />
+        <property name="delay" value="${delay}" />
+        <property name="period" value="${period}" />
     </bean>
-
-    <routeContext xmlns="http://camel.apache.org/schema/blueprint" id="route-context">
-        <route id="blueprint-route">
-            <from uri="timer://bp-{{timer-name}}"/>
-            <setBody>
-                <constant>Dummy Body</constant>
-            </setBody>
-            <bean ref="osgi-service" method="execute"/>
-            <to uri="mock:result"/>
-        </route>
-    </routeContext>
-
-    <camelContext id="blueprint-context" xmlns="http://camel.apache.org/schema/blueprint">
-        <!-- routeContextRef ref="route-context" / -->
-        <routeBuilder ref="java-route" />
-    </camelContext>
 
 </blueprint>

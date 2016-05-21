@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+           xsi:schemaLocation="
+         http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd"
+         >
+
+    <cm:property-placeholder id="blueprint-consumer-properties" persistent-id="blueprintConsumer" placeholder-prefix="$blueprint{" update-strategy="reload" >
+        <cm:default-properties>
+            <cm:property name="delay" value="1000" />
+            <cm:property name="period" value="5000" />
+            <cm:property name="trace" value="false" />
+        </cm:default-properties>
+    </cm:property-placeholder>
+
+    <bean id="blueprint-consumer" class="com.pronoia.osgi.blueprint.BlueprintServiceConsumer" init-method="start" destroy-method="stop">
+        <property name="container" ref="blueprintContainer" />
+        <property name="context" ref="blueprintBundleContext" />
+        <property name="trace" value="$blueprint{trace}" />
+        <!--
+        <property name="service" ref="osgi-service" />
+        -->
+        <property name="service" ref="osgi-service" />
+        <property name="delay" value="$blueprint{delay}" />
+        <property name="period" value="$blueprint{period}" />
+    </bean>
+
+</blueprint>

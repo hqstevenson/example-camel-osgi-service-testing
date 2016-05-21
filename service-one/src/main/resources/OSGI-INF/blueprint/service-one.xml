@@ -1,26 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xsi:schemaLocation="
-         http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+           xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+
+    <cm:property-placeholder id="service-one-properties" persistent-id="ServiceOne" update-strategy="reload">
+        <cm:default-properties>
+            <cm:property name="bp-implementation" value="bp-external"/>
+            <cm:property name="scr-implementation" value="scr-test"/>
+            <cm:property name="trace" value="false"/>
+        </cm:default-properties>
+    </cm:property-placeholder>
 
     <service interface="com.pronoia.osgi.service.MyServiceInterface" >
         <service-properties>
-            <entry key="implementation" value="bp-external" />
+            <entry key="implementation" value="${bp-implementation}"/>
         </service-properties>
         <bean class="com.pronoia.osgi.service.impl.ServiceOneImplementation" >
+            <property name="trace" value="${trace}" />
             <!-- Set the property on the bean to match the service property so it shows up in the log -->
-            <property name="implementation" value="bp-external" />
+            <property name="implementation" value="${bp-implementation}"/>
         </bean>
     </service>
 
     <service interface="com.pronoia.osgi.service.MyServiceInterface" >
         <service-properties>
-            <entry key="implementation" value="scr-test" />
+            <entry key="implementation" value="${scr-implementation}"/>
         </service-properties>
         <bean class="com.pronoia.osgi.service.impl.ServiceOneImplementation" >
+            <property name="trace" value="${trace}" />
             <!-- Set the property on the bean to match the service property so it shows up in the log -->
-            <property name="implementation" value="scr-test" />
+            <property name="implementation" value="${scr-implementation}"/>
         </bean>
     </service>
 

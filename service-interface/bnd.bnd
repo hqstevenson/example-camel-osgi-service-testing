@@ -1,0 +1,7 @@
+-snapshot=SNAPSHOT
+
+# export-version: 2.18.0.SNAPSHOT
+# export-version: $[replace;${project.version};(.*)-SNAPSHOT;$1.SNAPSHOT]
+export-version: $(Bundle-Version)
+
+Export-Package: com.pronoia.osgi.*;version=$(Bundle-Version)
