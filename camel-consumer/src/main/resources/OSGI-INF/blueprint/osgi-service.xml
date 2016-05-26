@@ -5,5 +5,18 @@
          http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
 
     <reference id="osgi-service" interface="com.pronoia.osgi.service.MyServiceInterface" filter="implementation=bp-external"/>
+    <reference id="alternate-service" interface="com.pronoia.osgi.service.MyServiceInterface" filter="implementation=bp-external"/>
+
+    <reference id="processor-service" interface="org.apache.camel.Processor"/>
+
+    <!--
+    <bean id="service-wrapper" class="com.pronoia.osgi.service.MyServiceWrapper" >
+        <property name="delegate" ref="osgi-service" />
+    </bean>
+    -->
+
+    <bean id="processor-wrapper" class="com.pronoia.camel.processor.ProcessorWrapper" >
+        <property name="delegate" ref="processor-service" />
+    </bean>
 
 </blueprint>

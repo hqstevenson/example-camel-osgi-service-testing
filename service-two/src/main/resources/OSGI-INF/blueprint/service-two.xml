@@ -34,4 +34,10 @@
         </bean>
     </service>
 
+    <service interface="org.apache.camel.Processor" >
+        <bean class="com.pronoia.camel.processor.impl.ProcessorTwoImplementation" >
+            <property name="trace" value="${trace}" />
+        </bean>
+    </service>
+
 </blueprint>

@@ -14,7 +14,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 @Ignore
-public class BlueprintServiceConsumerRouteTest extends CamelBlueprintTestSupport {
+public class BlueprintConsumerRouteTest extends CamelBlueprintTestSupport {
 
     @Override
     protected String getBlueprintDescriptor() {

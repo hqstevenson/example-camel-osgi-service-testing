@@ -16,7 +16,7 @@
 
     <reference id="osgi-service" interface="com.pronoia.osgi.service.MyServiceInterface" filter="implementation=bp-external"/>
 
-    <bean id="blueprint-consumer" class="com.pronoia.osgi.blueprint.BlueprintServiceConsumer" init-method="start" destroy-method="stop">
+    <bean id="blueprint-consumer" class="com.pronoia.osgi.blueprint.BlueprintConsumer" init-method="start" destroy-method="stop">
         <property name="container" ref="blueprintContainer" />
         <property name="context" ref="blueprintBundleContext" />
         <property name="trace" value="${trace}" />

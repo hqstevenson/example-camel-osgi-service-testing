@@ -1,0 +1,3 @@
+-plugin.spring: aQute.lib.spring.SpringXMLType
+
+Import-Package: *

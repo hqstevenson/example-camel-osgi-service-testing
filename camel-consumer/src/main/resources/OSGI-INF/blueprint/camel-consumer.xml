@@ -12,21 +12,41 @@
             <cm:property name="timer-name" value="camel-consumer"/>
             <cm:property name="auto-startup" value="true" />
             <cm:property name="trace" value="true"/>
+            <cm:property name="cacheBean" value="true" />
         </cm:default-properties>
     </cm:property-placeholder>
 
-    <bean id="java-route" class="com.pronoia.camel.builder.ServiceConsumerBuilder" scope="prototype" depends-on="blueprint-consumer">
+    <bean id="bean-route" class="com.pronoia.camel.builder.BeanConsumerBuilder">
         <property name="trace" value="$camel{trace}" />
         <property name="autoStartup" value="$camel{auto-startup}" />
+        <property name="cacheBean" value="$camel{cacheBean}" />
         <property name="beanId" value="osgi-service"/>
+        <property name="beanInstance" ref="alternate-service" />
         <!--
-        -->
         <property name="beanInstance" ref="osgi-service" />
-        <property name="timerName" value="java-$camel{timer-name}"/>
+        <property name="beanInstance" >
+            <bean class="com.pronoia.osgi.service.MyServiceWrapper" >
+                <property name="delegate" ref="osgi-service" />
+            </bean>
+        </property>
+        -->
+    </bean>
+
+    <bean id="processor-route" class="com.pronoia.camel.builder.ProcessorConsumerBuilder">
+        <property name="trace" value="$camel{trace}" />
+        <property name="autoStartup" value="$camel{auto-startup}" />
+        <!--
+        <property name="processor" ref="processor-wrapper" />
+        <property name="processor" ref="processor-service" />
+        -->
     </bean>
 
     <camelContext id="camel-consumer" xmlns="http://camel.apache.org/schema/blueprint">
-        <routeBuilder ref="java-route"/>
+        <!--
+            <routeBuilder ref="bean-route"/>
+            <routeBuilder ref="processor-route"/>
+        -->
+        <routeBuilder ref="bean-route"/>
     </camelContext>
 
 </blueprint>

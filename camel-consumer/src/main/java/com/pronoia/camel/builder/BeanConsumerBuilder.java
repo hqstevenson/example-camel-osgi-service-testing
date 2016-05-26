@@ -7,29 +7,30 @@ import org.apache.camel.builder.RouteBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ServiceConsumerBuilder extends RouteBuilder{
+public class BeanConsumerBuilder extends RouteBuilder{
     Logger log = LoggerFactory.getLogger(this.getClass());
 
     boolean trace = false;
 
     boolean autoStartup = true;
+    boolean cacheBean = true;
     String beanId = "osgi-service";
-    String timerName = "default-timer";
+    String timerName = "service-timer";
 
-    MyServiceInterface beanInstance;
+    public MyServiceInterface beanInstance;
 
-    public ServiceConsumerBuilder() {
+    public BeanConsumerBuilder() {
     }
 
     @Override
     public void configure() throws Exception {
         fromF( "timer://%s?period=%d&fixedRate=%b", timerName, 5000, true)
             .autoStartup(autoStartup)
-            .routeId( "java-route")
+            .routeId( "service-route")
             .setBody().constant( "Dummy Value")
             .log( "Calling " + beanId )
             // .bean( beanInstance, "execute", false)
-            .toF( "bean://%s?cache=%b&method=%s", beanId, false, "execute")
+            .toF( "bean://%s?cache=%b&method=%s", beanId, cacheBean, "execute")
             // .to( "mock://result")
             ;
 
@@ -55,6 +56,14 @@ public class ServiceConsumerBuilder extends RouteBuilder{
 
     public void setAutoStartup(boolean autoStartup) {
         this.autoStartup = autoStartup;
+    }
+
+    public boolean isCacheBean() {
+        return cacheBean;
+    }
+
+    public void setCacheBean(boolean cacheBean) {
+        this.cacheBean = cacheBean;
     }
 
     public String getTimerName() {
@@ -87,8 +96,6 @@ public class ServiceConsumerBuilder extends RouteBuilder{
         }
 
         this.beanInstance = beanInstance;
-
-        beanInstance.execute( "Calling from setter");
     }
 
     public static void main( String[] args ) {

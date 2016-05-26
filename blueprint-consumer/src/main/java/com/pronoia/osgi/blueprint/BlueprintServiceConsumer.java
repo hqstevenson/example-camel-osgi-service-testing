@@ -96,8 +96,8 @@ public class BlueprintServiceConsumer {
     }
 
     public void start() {
-        discoverServiceFromBundleContext();
-        // discoverServiceFromBlueprintContainer();
+        // discoverServiceFromBundleContext();
+        discoverServiceFromBlueprintContainer();
         timer = new Timer( "Blueprint Consumer Timer");
         task = new BlueprintConsumerTimerTask();
         timer.schedule( task, delay, period);

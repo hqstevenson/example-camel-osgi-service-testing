@@ -1,7 +1,6 @@
 package com.pronoia.camel.builder;
 
-import com.pronoia.osgi.service.MyServiceInterface;
-
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,10 +11,9 @@ public class ProcessorConsumerBuilder extends RouteBuilder{
     boolean trace = false;
 
     boolean autoStartup = true;
-    String beanId = "osgi-service";
-    String timerName = "default-timer";
+    String timerName = "processor-timer";
 
-    MyServiceInterface beanInstance;
+    Processor processor;
 
     public ProcessorConsumerBuilder() {
     }
@@ -24,11 +22,10 @@ public class ProcessorConsumerBuilder extends RouteBuilder{
     public void configure() throws Exception {
         fromF( "timer://%s?period=%d&fixedRate=%b", timerName, 5000, true)
             .autoStartup(autoStartup)
-            .routeId( "java-route")
+            .routeId( "processor-route")
             .setBody().constant( "Dummy Value")
-            .log( "Calling " + beanId )
-            // .bean( beanInstance, "execute", false)
-            .toF( "bean://%s?cache=%b&method=%s", beanId, false, "execute")
+            .log( "Calling processor" )
+            .process( processor )
             // .to( "mock://result")
             ;
 
@@ -64,30 +61,20 @@ public class ProcessorConsumerBuilder extends RouteBuilder{
         this.timerName = timerName;
     }
 
-    public String getBeanId() {
-        return beanId;
+    public Processor getProcessor() {
+        return processor;
     }
 
-    public void setBeanId(String beanId) {
-        this.beanId = beanId;
-    }
-
-    public MyServiceInterface getBeanInstance() {
-        return beanInstance;
-    }
-
-    public void setBeanInstance(MyServiceInterface beanInstance) {
+    public void setProcessor(Processor processor) {
         if (trace) {
             Exception ex = new Exception();
             ex.fillInStackTrace();
-            log.info("********** Setting beanInstance of type " + beanInstance.getClass().getName() + ": ", ex);
+            log.info("********** Setting processor of type " + processor.getClass().getName() + ": ", ex);
         } else {
-            log.info("********** Setting beanInstanceof type" + beanInstance.getClass().getName());
+            log.info("********** Setting processor type" + processor.getClass().getName());
         }
 
-        this.beanInstance = beanInstance;
-
-        beanInstance.execute( "Calling from setter");
+        this.processor = processor;
     }
 
     public static void main( String[] args ) {

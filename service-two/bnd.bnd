@@ -1,2 +1,3 @@
--provider-policy :    ${range;[====,===+)}
--consumer-policy :    ${range;[===,==+)}
+-plugin.spring: aQute.lib.spring.SpringXMLType
+
+Import-Package: *

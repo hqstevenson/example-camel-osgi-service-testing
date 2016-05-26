@@ -6,16 +6,24 @@ import com.pronoia.osgi.service.stub.StubServiceImplementation;
 
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.NotifyBuilder;
+import org.apache.camel.impl.JndiRegistry;
 import org.apache.camel.test.junit4.CamelTestSupport;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+public class BeanConsumerBuilderTest extends CamelTestSupport{
 
-public class ServiceConsumerBuilderTest extends CamelTestSupport{
+    @Override
+    protected JndiRegistry createRegistry() throws Exception {
+        JndiRegistry registry = super.createRegistry();
+
+        registry.bind("osgi-service", new StubServiceImplementation());
+
+        return registry;
+    }
 
     @Override
     protected RoutesBuilder createRouteBuilder() throws Exception {
-        ServiceConsumerBuilder builder = new ServiceConsumerBuilder();
+        BeanConsumerBuilder builder = new BeanConsumerBuilder();
 
         builder.setBeanInstance( new StubServiceImplementation() );
         return builder;

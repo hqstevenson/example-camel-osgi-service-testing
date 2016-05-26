@@ -9,19 +9,21 @@
     <cm:property-placeholder id="blueprint-consumer-properties" persistent-id="blueprintConsumer" placeholder-prefix="$blueprint{" update-strategy="reload" >
         <cm:default-properties>
             <cm:property name="delay" value="1000" />
-            <cm:property name="period" value="5000" />
+            <cm:property name="period" value="15000" />
             <cm:property name="trace" value="false" />
         </cm:default-properties>
     </cm:property-placeholder>
 
-    <bean id="blueprint-consumer" class="com.pronoia.osgi.blueprint.BlueprintServiceConsumer" init-method="start" destroy-method="stop">
+    <!--
+    <bean id="blueprint-consumer" class="com.pronoia.osgi.blueprint.BlueprintConsumermethod="start" destroy-method="stop">
+    <bean id="blueprint-consumer" class="com.pronoia.osgi.blueprint.BlueprintConsumer">
+     -->
+    <bean id="blueprint-consumer" class="com.pronoia.osgi.blueprint.BlueprintConsumer" init-method="start" destroy-method="stop">
         <property name="container" ref="blueprintContainer" />
         <property name="context" ref="blueprintBundleContext" />
         <property name="trace" value="$blueprint{trace}" />
-        <!--
         <property name="service" ref="osgi-service" />
-        -->
-        <property name="service" ref="osgi-service" />
+        <property name="alternate" ref="alternate-service" />
         <property name="delay" value="$blueprint{delay}" />
         <property name="period" value="$blueprint{period}" />
     </bean>
